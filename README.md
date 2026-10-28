@@ -41,7 +41,8 @@ AkilliYurtAsistani/
         ├── Controllers/
         ├── Data/
         ├── Dtos/
-        └── Models/
+        ├── Models/
+        └── Services/
 ```
 
 ## Diyagramlar
@@ -68,6 +69,8 @@ Swagger arayüzü: http://localhost:5080/swagger
 
 | Metot | Adres | Açıklama |
 |---|---|---|
+| POST | `/api/auth/kayit` | Kullanıcı kaydı (şifre PBKDF2 ile hash'lenir) |
+| POST | `/api/auth/giris` | E-posta ve şifre ile giriş |
 | GET | `/api/odalar` | Odaları listeler |
 | POST | `/api/odalar/bina` | Bina ekler |
 | POST | `/api/odalar` | Oda ekler |
@@ -79,3 +82,17 @@ Swagger arayüzü: http://localhost:5080/swagger
 | POST | `/api/iot/olcum` | ESP32 sensör ölçümünü alır, eşik aşımında alarm üretir |
 | GET | `/api/iot/oda/{odaId}/son-olcum` | Odanın son ölçümünü getirir |
 | POST | `/api/iot/kart` | RFID kart okutmasıyla giriş/çıkış kaydı oluşturur |
+| GET | `/api/duyurular` | Duyuruları listeler |
+| POST | `/api/duyurular` | Yönetici duyuru yayınlar, öğrencilere bildirim gider |
+| GET | `/api/bildirimler/kullanici/{id}` | Kullanıcının bildirimlerini listeler |
+| PUT | `/api/bildirimler/{id}/okundu` | Bildirimi okundu olarak işaretler |
+| GET | `/api/yemekmenusu` | Haftalık yemek menüsünü ve ortalama puanları getirir |
+| POST | `/api/yemekmenusu` | Menü ekler |
+| POST | `/api/yemekmenusu/{id}/degerlendir` | Öğrenci yemeği 1-5 arası puanlar |
+| GET | `/api/camasirhane/bina/{binaId}/makineler` | Makineleri ve anlık doluluğu listeler |
+| GET | `/api/camasirhane/makine/{id}/bos-saatler` | Seçilen gün için boş 1 saatlik dilimleri getirir |
+| POST | `/api/camasirhane/rezervasyon` | Rezervasyon yapar (çakışma ve tek aktif rezervasyon kontrolü) |
+| DELETE | `/api/camasirhane/rezervasyon/{id}` | Rezervasyonu iptal eder (en geç 30 dk önce) |
+| GET | `/api/raporlar/ozet` | Doluluk, açık talep, günlük giriş ve alarm özeti |
+| GET | `/api/raporlar/ariza` | Arıza istatistikleri (kategori, ortalama çözüm süresi) |
+| GET | `/api/raporlar/ortam/oda/{odaId}` | Odanın saatlik sıcaklık/nem/gaz geçmişi |
