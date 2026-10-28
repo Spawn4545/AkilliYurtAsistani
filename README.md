@@ -49,3 +49,33 @@ AkilliYurtAsistani/
 - [ER Diyagramı](docs/diyagramlar/er-diyagrami.png)
 - [Use Case – Arıza/Talep Yönetimi](docs/diyagramlar/usecase-ariza-talep.png)
 - [Use Case – IoT Ortam İzleme ve Giriş-Çıkış](docs/diyagramlar/usecase-iot-izleme.png)
+
+## Çalıştırma
+
+Gereksinimler: .NET 8 SDK, SQL Server (LocalDB yeterli)
+
+```bash
+cd src/AkilliYurt.API
+dotnet tool install --global dotnet-ef   # ilk seferde
+dotnet ef migrations add IlkKurulum
+dotnet ef database update
+dotnet run
+```
+
+Swagger arayüzü: http://localhost:5080/swagger
+
+## API Uç Noktaları
+
+| Metot | Adres | Açıklama |
+|---|---|---|
+| GET | `/api/odalar` | Odaları listeler |
+| POST | `/api/odalar/bina` | Bina ekler |
+| POST | `/api/odalar` | Oda ekler |
+| POST | `/api/odalar/{id}/yerlestir` | Öğrenciyi odaya yerleştirir |
+| GET | `/api/arizatalepleri` | Arıza taleplerini listeler (durum/kullanıcı filtresi) |
+| POST | `/api/arizatalepleri` | Arıza talebi oluşturur |
+| PUT | `/api/arizatalepleri/{id}/ata` | Talebi teknik personele atar |
+| PUT | `/api/arizatalepleri/{id}/coz` | Talebi çözüldü olarak işaretler |
+| POST | `/api/iot/olcum` | ESP32 sensör ölçümünü alır, eşik aşımında alarm üretir |
+| GET | `/api/iot/oda/{odaId}/son-olcum` | Odanın son ölçümünü getirir |
+| POST | `/api/iot/kart` | RFID kart okutmasıyla giriş/çıkış kaydı oluşturur |
